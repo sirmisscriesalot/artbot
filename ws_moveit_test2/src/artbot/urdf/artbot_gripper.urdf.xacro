@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<robot name="artbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:include filename="$(find artbot)/urdf/artbot.urdf.xacro" />
+	<xacro:include filename="$(find artbot)/urdf/macros.xacro" />
+		<xacro:property name="PI" value="3.1415926535897931"/>
+	
+	<!-- Base Box -->
+    <xacro:property name="base_name" value="chassis"/>
+    <xacro:property name="base_box_mass" value="1.0"/>
+	<xacro:property name="base_box_x" value="0.1"/>
+    <xacro:property name="base_box_y" value="0.1"/>
+    <xacro:property name="base_box_z" value="0.1"/>
+
+    <!-- Wheels -->
+	<xacro:property name="wheel_radius" value="${base_box_z / 4.0}"/>
+    <xacro:property name="wheel_width" value="0.001"/>
+    <xacro:property name="wheel_increment" value="0.010"/>
+    <xacro:property name="mu1_wheel" value="0.5"/>
+    <xacro:property name="mu2_wheel" value="0.5"/>
+    <xacro:property name="kp_wheel" value="1000.0"/>
+    <xacro:property name="kd_wheel" value="1000.0"/>
+
+    <!--Caster Wheels-->
+    <xacro:property name="dummy_length" value="0.001"/>
+
+    <!-- Sensors -->
+    <xacro:property name="sensor_mass" value="0.01"/>
+    <xacro:property name="camera_box_x" value="0.02"/>
+    <xacro:property name="camera_box_y" value="0.01"/>
+    <xacro:property name="camera_box_z" value="0.01"/>
+
+    <!-- Oberc Astra-->
+    <xacro:property name="orbbec_astra_scale" value="1.0"/>
+
+    <!-- RGB sensor - cam -->
+    <xacro:property name="orbbec_astra_rel_rgb_px"   value="0.0" />
+    <xacro:property name="orbbec_astra_rel_rgb_py"   value="-0.0125" />
+    <xacro:property name="orbbec_astra_rel_rgb_pz"   value="-0.0150" />  
+    <!-- IR sensor - depth -->
+    <xacro:property name="orbbec_astra_depth_rel_rgb_px" value="0.0" />
+    <xacro:property name="orbbec_astra_depth_rel_rgb_py" value="0.0250" />
+    <xacro:property name="orbbec_astra_depth_rel_rgb_pz" value="0.0" />
+
+    <xacro:property name="M_PI" value="3.1415926535897931" />
+	
+	<!-- Gripper -->
+	
+	<xacro:property name="gripper_base_mass" value="0.01"/>
+	<xacro:property name="gripper_base_x" value="0.02"/>
+	<xacro:property name="gripper_base_y" value="${base_box_y}"/>
+	<xacro:property name="gripper_base_z" value="0.02"/>
+
+	<xacro:property name="gripper_finguer_mass" value="0.01"/>
+	<xacro:property name="gripper_finguer_x" value="0.05"/>
+	<xacro:property name="gripper_finguer_y" value="0.01"/>
+	<xacro:property name="gripper_finguer_z" value="0.01"/>
+	<xacro:include filename="$(find artbot)/urdf/gripper_simple.xacro" />
+	<xacro:gripper parent="Link3" origin_xyz="-0.015 -0.31971 0.0066837"/>
+
+	
+</robot>
