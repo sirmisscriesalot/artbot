@@ -1,0 +1,17 @@
+controller_list:
+  - name: arm_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - ExtampFlex
+      - AddampAbd
+      - Elbow
+      - gripper_base_joint
+  - name: hand_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - gripper_l_joint
+      - gripper_r_joint
