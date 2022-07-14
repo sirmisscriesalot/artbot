@@ -1,0 +1,2 @@
+-> integrate the vision pipeline with the planning pipeline
+-> write a custom inverse kinematics solver for the artbot
