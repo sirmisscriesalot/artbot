@@ -1,0 +1,50 @@
+arm_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - ExtampFlex
+    - AddampAbd
+    - Elbow
+    - gripper_base_joint
+  gains:
+    ExtampFlex:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    AddampAbd:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    Elbow:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    gripper_base_joint:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+  constraints:
+    goal_time: 10.0
+    stopped_velocity_tolerance: 1.0
+hand_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - gripper_l_joint
+    - gripper_r_joint
+  gains:
+    gripper_l_joint:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    gripper_r_joint:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+  constraints:
+    goal_time: 10.0
+    stopped_velocity_tolerance: 1.0
