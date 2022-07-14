@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Gripper -->
+    <xacro:macro  name="gripper" params="parent origin_xyz">
+
+        <link name="gripper_base">
+        <inertial>
+          <mass value="${gripper_base_mass}" />
+          <origin xyz="0 0 0"/>
+          <xacro:box_inertia mass="${gripper_base_mass}" x="${gripper_base_x}" y="${gripper_base_y}" z="${gripper_base_z}" />
+        </inertial>
+        <visual>
+          <geometry>
+            <box size="${gripper_base_x} ${gripper_base_y} ${gripper_base_z}"/>
+          </geometry>
+          <material name="grey" />
+        </visual>
+        <!-- <collision>
+          <geometry>
+            <box size="${gripper_base_x} ${gripper_base_y} ${gripper_base_z}"/>
+          </geometry>
+        </collision> -->
+      </link>
+
+      <joint name="gripper_base_joint" type="prismatic">
+        <origin xyz="${origin_xyz}" rpy="1.57 0 4.71"/>
+        <parent link="${parent}" />
+        <child link="gripper_base" />
+        <axis xyz="0 0 1" />
+        <limit velocity="1.0" effort="10.0" lower="${-1.0 * base_box_x / 2.0}" upper="${base_box_x / 2.0}"/>
+        <dynamics friction="1" damping="1" />
+      </joint>
+
+      <transmission name="gripper_base_tr">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gripper_base_joint">
+           <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor_gripper_base_joint">
+           <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+
+
+      <link name="gripper_l">
+        <inertial>
+          <mass value="${gripper_finguer_mass}" />
+          <origin xyz="0 0 0"/>
+          <xacro:box_inertia mass="${gripper_finguer_mass}" x="${gripper_finguer_x}" y="${gripper_finguer_y}" z="${gripper_finguer_z}" />
+        </inertial>
+        <visual>
+          <geometry>
+            <box size="${gripper_finguer_x} ${gripper_finguer_y} ${gripper_finguer_z}"/>
+          </geometry>
+          <material name="grey" />
+        </visual>
+        <collision>
+          <geometry>
+            <box size="${gripper_finguer_x} ${gripper_finguer_y} ${gripper_finguer_z}"/>
+          </geometry>
+          <surface>
+        <friction>
+          <ode>
+            <mu>1.0</mu>
+            <mu2>1.0</mu2>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </friction>
+      </surface>
+        </collision>
+      </link>
+
+      <joint name="gripper_l_joint" type="prismatic">
+        <origin xyz="${gripper_finguer_x / 2.0} 0 0" rpy="0 0 0"/>
+        <parent link="gripper_base" />
+        <child link="gripper_l" />
+        <axis xyz="0 1 0" />
+        <limit velocity="1.0" effort="10.0" lower="${gripper_finguer_y / 2.0}" upper="${gripper_base_y / 2.0}"/>
+        <dynamics friction="1" damping="1" />
+      </joint>
+
+      <transmission name="gripper_l_joint_tr">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gripper_l_joint">
+           <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="gripper_l_joint">
+           <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+
+
+      <link name="gripper_r">
+        <inertial>
+          <mass value="${gripper_finguer_mass}" />
+          <origin xyz="0 0 0"/>
+          <xacro:box_inertia mass="${gripper_finguer_mass}" x="${gripper_finguer_x}" y="${gripper_finguer_y}" z="${gripper_finguer_z}" />
+        </inertial>
+        <visual>
+          <geometry>
+            <box size="${gripper_finguer_x} ${gripper_finguer_y} ${gripper_finguer_z}"/>
+          </geometry>
+          <material name="grey" />
+        </visual>
+        <collision>
+          <geometry>
+            <box size="${gripper_finguer_x} ${gripper_finguer_y} ${gripper_finguer_z}"/>
+          </geometry>
+          <surface>
+        <friction>
+          <ode>
+            <mu>1.0</mu>
+            <mu2>1.0</mu2>
+            <min_depth>0.01</min_depth>
+          </ode>
+        </friction>
+      </surface>
+        </collision>
+      </link>
+
+      <joint name="gripper_r_joint" type="prismatic">
+        <origin xyz="${gripper_finguer_x / 2.0} 0 0" rpy="0 0 0"/>
+        <parent link="gripper_base" />
+        <child link="gripper_r" />
+        <axis xyz="0 -1 0" />
+        <limit velocity="1.0" effort="10.0" lower="${gripper_finguer_y / 2.0}" upper="${gripper_base_y / 2.0}"/>
+        <dynamics friction="1" damping="1" />
+      </joint>
+
+      <transmission name="gripper_r_joint_tr">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gripper_r_joint">
+           <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="gripper_r_joint">
+           <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+          <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+      </transmission>
+
+
+
+
+
+
+  </xacro:macro >
+
+</robot>
