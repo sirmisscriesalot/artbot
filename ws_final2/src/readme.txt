@@ -1,0 +1,3 @@
+-> this is the artbot inteegrated with an intel realsense sensor
+-> the solution is slightly hacky to get it working in gazebo because intel tools don't work for aligning depth and color images in gazebo
+-> changes to urdf to align the camera intrinsics 
